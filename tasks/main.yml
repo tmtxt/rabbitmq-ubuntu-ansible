@@ -1,2 +1,14 @@
 ---
-# tasks file for rabbitmq-ubuntu-ansible
+- name: add rabbitmq repository key
+  sudo: yes
+  apt_key: >-
+    url=http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+    state=present
+
+- name: add rabbitmq repository
+  sudo: yes
+  copy: src=rabbitmq.list dest=/etc/apt/sources.list.d/ backup=yes
+
+- name: install rabbitmq server
+  sudo: yes
+  apt: name=rabbitmq-server
